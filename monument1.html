@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taj Mahal - HeritEdge</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Rajdhani', sans-serif;
+    background-color: #1a1a1a;
+    color: #d4af37;
+  }
+  header {
+    background-color: #111;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .banner {
+    width: 100%;
+    height: 300px;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/d/da/Taj-Mahal.jpg') center/cover no-repeat;
+  }
+  .options {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px;
+    flex-wrap: wrap;
+  }
+  .option-card {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+    transition: 0.3s;
+  }
+  .option-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(212,175,55,0.5);
+  }
+  .option-card img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  audio {
+    display: block;
+    margin: 20px auto;
+  }
+  details {
+    margin: 40px auto;
+    max-width: 800px;
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  details summary {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  details p {
+    margin-top: 15px;
+    line-height: 1.6;
+  }
+  .quiz {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+  }
+  .quiz h3 { margin-bottom: 15px; }
+  .quiz button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #d4af37;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .quiz button:hover { background-color: #b79428; }
+  #result {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .done-btn {
+    display: block;
+    margin: 40px auto;
+    padding: 15px 30px;
+    background-color: #d4af37;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  .done-btn:hover { background-color: #b79428; }
+</style>
+</head>
+<body>
+
+<header>HeritEdge - Taj Mahal</header>
+
+<div class="banner"></div>
+
+<!-- Options: 3D + AR -->
+<div class="options">
+  <div class="option-card">
+    <h2>3D View</h2>
+    <!-- Direct Google Drive link inside model-viewer -->
+    <model-viewer src="https://drive.google.com/file/d/19hvyc4KwsU6u6UESccUDwpCSSCFFlvoN/view?usp=drive_link" 
+      alt="Taj Mahal 3D"
+      ar ar-modes="webxr scene-viewer quick-look"
+      environment-image="neutral"
+      auto-rotate camera-controls style="width:100%; height:300px;">
+    </model-viewer>
+    <audio controls>
+      <source src="assets/audio/taj.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div class="option-card">
+    <h2>AR View</h2>
+    <!-- Direct link (not converted) -->
+    <a href="https://drive.google.com/file/d/19hvyc4KwsU6u6UESccUDwpCSSCFFlvoN/view?usp=drive_link" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Taj-Mahal.jpg" alt="View Taj Mahal in AR">
+    </a>
+  </div>
+</div>
+
+<!-- More Info -->
+<details>
+  <summary>More Info</summary>
+  <p>
+    The Taj Mahal, located in Agra, India, was commissioned in 1632 by the Mughal emperor Shah Jahan 
+    to house the tomb of his beloved wife Mumtaz Mahal. An ivory-white marble mausoleum, 
+    it is recognized as one of the greatest architectural achievements in history and a UNESCO World Heritage Site.
+  </p>
+</details>
+
+<!-- Quiz -->
+<div class="quiz">
+  <h3>Quiz: Test Your Knowledge!</h3>
+  <form id="quizForm">
+    <p>1. Who commissioned the Taj Mahal?</p>
+    <input type="radio" name="q1" value="wrong"> Akbar<br>
+    <input type="radio" name="q1" value="correct"> Shah Jahan<br>
+    <input type="radio" name="q1" value="wrong"> Aurangzeb<br><br>
+
+    <p>2. Where is the Taj Mahal located?</p>
+    <input type="radio" name="q2" value="wrong"> Delhi<br>
+    <input type="radio" name="q2" value="correct"> Agra<br>
+    <input type="radio" name="q2" value="wrong"> Jaipur<br><br>
+
+    <button type="button" onclick="checkQuiz()">Submit Quiz</button>
+  </form>
+  <div id="result"></div>
+</div>
+
+<!-- Done Button -->
+<button class="done-btn" onclick="window.location.href='congrats-taj.html'">Done</button>
+
+<script>
+function checkQuiz(){
+  let score = 0;
+  const q1 = document.querySelector('input[name="q1"]:checked');
+  const q2 = document.querySelector('input[name="q2"]:checked');
+  if(q1 && q1.value === "correct") score++;
+  if(q2 && q2.value === "correct") score++;
+  document.getElementById("result").innerText = "You scored " + score + "/2!";
+}
+</script>
+
+<!-- Import model-viewer -->
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+</body>
+</html>
